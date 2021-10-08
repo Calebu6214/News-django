@@ -1,0 +1,4 @@
+virtual/
+*.pys
+.env/
+sec

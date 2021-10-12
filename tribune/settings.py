@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODE=config("MODE", default="dev")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-#uz_ezzlyz-yupj(mo#n*985u1=!d@oy=5azvgk*)6qvxf(cgy'
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = os.environ.get('DEBUG', True)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -85,30 +85,30 @@ WSGI_APPLICATION = 'tribune.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 # development
-if config('MODE')=="dev":
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': config('tribune'),
-            'USER': config('postgres'),
-            'PASSWORD':config('postgres'),
-            'HOST': config('127.0.0.1'),
-            'PORT':'', 
-            
-        }
+# if config('MODE')=="dev":
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'tribune',
+        'USER': 'postgres',
+        'PASSWORD':'postgres',
+        'HOST': '127.0.0.1',
+        'PORT':'', 
+        
     }
+}
     # production
-else:
-   DATABASES = {
-       'default': dj_database_url.config(
-           default=config('DATABASE_URL')
-       )
-   }
+# else:
+#    DATABASES = {
+#        'default': dj_database_url.config(
+#            default=config('DATABASE_URL')
+#        )
+#    }
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+# ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
 # Password validation
@@ -169,3 +169,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
+# Email configurations remember to install python-decouple
+EMAIL_USE_TLS = 'True'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'caleb.kipngetich@student.moringaschool.com'
+EMAIL_HOST_PASSWORD = 'Roman254'
